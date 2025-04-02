@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, CtaSection, Contact, Footer } from "../components/index";
+import { Header, CtaSection, Footer } from "../components/index";
 
 const Landing = () => {
   return (
@@ -8,9 +8,7 @@ const Landing = () => {
       <section id="about">
         <CtaSection />
       </section>
-      <section id="contact">
-        <Contact />
-      </section>
+
       <Footer />
     </div>
   );

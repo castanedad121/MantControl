@@ -1,6 +1,6 @@
 import Header from "./Header.jsx";
 import CtaSection from "./CtaSection.jsx";
-import Contact from "./Contact.jsx";
+import TicketModal from "./TickectModal.jsx";
 import ContentSection from "./ContentSection.jsx";
 import Footer from "./Footer.jsx";
 
@@ -15,11 +15,12 @@ import FilterSudents from "./FilterStudents.jsx";
 import IconMenu from "./IconMenu.jsx";
 import Ticket from "./Ticket.jsx";
 import GroupTickets from "./GroupTickets.jsx";
+import FilterTickets from "./FilterTickets.jsx";
 
 export {
   Header,
   CtaSection,
-  Contact,
+  TicketModal,
   ContentSection,
   Footer,
   SideBar,
@@ -30,4 +31,5 @@ export {
   IconMenu,
   Ticket,
   GroupTickets,
+  FilterTickets,
 };

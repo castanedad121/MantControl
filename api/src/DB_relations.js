@@ -42,41 +42,38 @@ const {
 // hasMany: establece una relación uno a muchos entre dos modelos.
 // belongsToMany: establece una relación muchos a muchos entre dos modelos.
 
-// Realacion entre role y menu con sus respectivos permissions
 Role.belongsToMany(Menu, { through: AccessControl });
+
 Menu.belongsToMany(Role, { through: AccessControl });
 
 AccessControl.belongsTo(Role);
 AccessControl.belongsTo(Menu);
 
-// Role pertenece a un User
 User.belongsTo(Role);
 User.hasOne(Agenda);
-Agenda.hasOne(User);
 
-// PositionJob(positionFather) pertenece a PotionJob
 PositionJob.belongsTo(PositionJob, { as: "PositionFather" });
 
-//PositionJob y Anexo(type) pertenecen a Agenda
 Agenda.belongsTo(PositionJob);
 Agenda.belongsTo(Anexo, { as: "AnexoType" });
 Agenda.belongsTo(AgendaLegal);
+Agenda.hasOne(User);
+
 AgendaLegal.belongsTo(Anexo, { as: "AnexoType" });
 
-//Agenda(TechnicalSupport), Anexo(type) y Anexo(Category) pertenecen a DocumentWorkOrderManttoModel
 DocumentWorkOrderMantto.belongsTo(Agenda, { as: "AgendaTechnicalSupport" });
 DocumentWorkOrderMantto.belongsTo(Anexo, { as: "AnexoType" });
 DocumentWorkOrderMantto.belongsTo(Anexo, { as: "AnexoCategory" });
 
-//Muchos Agenda(PersonRequest), Agenda(EnterpriseRequest), DocumentWorkOrderMantto(DocWorkOrder) pertenecen a Ticket
 Ticket.belongsTo(Agenda, { as: "PersonRequest" });
 Ticket.belongsTo(AgendaLegal, { as: "EnterpriseRequest" });
 Ticket.belongsTo(DocumentWorkOrderMantto, { as: "DocWorkOrder" });
 Ticket.belongsTo(User, { as: "UserCreation" });
 Ticket.belongsTo(User, { as: "UserUpgrade" });
 Ticket.belongsTo(Anexo, { as: "AnexoType" });
+Ticket.belongsTo(Anexo, { as: "Priotity" });
+Ticket.belongsTo(Agenda, { as: "SupportCenter" });
 
-//
 module.exports = {
   User,
   Role,

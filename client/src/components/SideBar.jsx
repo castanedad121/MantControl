@@ -24,17 +24,15 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    console.log(pahtnameActive);
     menus.map((menu) => {
       if (pahtnameActive === menu.path) {
-        console.log(menu.parentMenu + "encontrado");
         setActiveMenu({ menu: menu.parentMenu, active: true });
       }
     });
   }, [pahtnameActive, menus]);
 
   return (
-    <div className="flex flex-col justify-start text-center items-center px-2  w-16  pt-4  h-screen  bg-gradient-to-r from-gray-600 to-gray-500  group sm:hover:w-56 hover:w-5/6">
+    <div className="flex flex-col justify-start text-center items-center px-2  w-16  pt-4  h-screen  bg-gradient-to-r from-gray-600 to-gray-500  group  hover:w-[210px]">
       <NavLink
         className={({ isActive }) =>
           isActive
@@ -49,7 +47,7 @@ const SideBar = () => {
         </label>
       </NavLink>
 
-      <div className="flex flex-col items-start pt-6 w-full">
+      <div className="flex flex-col items-start pt-6 w-full ">
         {menus?.map((menu, index) => (
           <React.Fragment key={index}>
             {menu.level === 1 &&
@@ -57,30 +55,30 @@ const SideBar = () => {
                 <NavLink
                   className={({ isActive }) =>
                     isActive
-                      ? "hidden group-hover:flex  items-center justify-around text-white my-1  rounded-md bg-white/30 p-2 w-full"
-                      : "hidden group-hover:flex items-center justify-around text-gray-950 my-1  rounded-md hover:bg-white/30 p-2 w-full"
+                      ? "hidden group-hover:flex items-center justify-evenly py-2 text-white rounded-md bg-white/30  w-full"
+                      : "hidden group-hover:flex items-center justify-evenly py-2  text-gray-950  rounded-md hover:bg-white/30 w-full"
                   }
                   onClick={() => viewSubMenu(menu.order)}
                   to={menu.path}
                 >
-                  <div className="w-[20%] text-white ">
+                  <div className="w-[20%] text-white flex  justify-center">
                     <IconMenu menu={menu.order} />
                   </div>
-                  <h1 className="hidden group-hover:flex text-sm text-white w-[80%] ">
+                  <h1 className="hidden group-hover:flex text-sm text-white w-[70%] ">
                     {menu.nameFront}
                   </h1>
                   {menus.find((menux) => menux.parentMenu === menu.order) ? (
                     menu.order === activeMenu.menu && activeMenu.active ? (
-                      <div className="w-[20%] bg-yellow-300">
+                      <div className="w-[10%] flex   justify-center">
                         <MdOutlineExpandMore className="size-5 rotate-180 " />
                       </div>
                     ) : (
-                      <div className="w-[20%]">
+                      <div className="w-[10%] flex  justify-center">
                         <MdOutlineExpandMore className="size-5 " />
                       </div>
                     )
                   ) : (
-                    <div className="w-[20%] bg-yellow-300 "></div>
+                    <div className="w-[10%] "></div>
                   )}
                 </NavLink>
               )}
@@ -89,27 +87,27 @@ const SideBar = () => {
                 <div
                   className={
                     menu.order === activeMenu.menu && activeMenu.active
-                      ? "hidden group-hover:flex items-center justify-around text-gray-950 my-1  rounded-md bg-white/30 p-2 w-full cursor-pointer"
-                      : "hidden group-hover:flex items-center justify-around text-gray-950 my-1  rounded-md hover:bg-white/30 p-2 w-full cursor-pointer"
+                      ? "hidden group-hover:flex items-center justify-evenly text-gray-950 rounded-md bg-white/30 py-2  w-full cursor-pointer"
+                      : "hidden group-hover:flex items-center justify-evenly text-gray-950 rounded-md hover:bg-white/30 py-2 w-full cursor-pointer"
                   }
                   onClick={() => viewSubMenu(menu.order)}
                 >
-                  <div className="w-[20%] text-white ">
+                  <div className="w-[20%] text-white flex  justify-center">
                     <IconMenu menu={menu.order} />
                   </div>
-                  <h1 className="hidden group-hover:flex text-sm text-white w-[80%] ">
+                  <h1 className="hidden group-hover:flex text-sm text-white w-[70%] ">
                     {menu.nameFront}
                   </h1>
                   {menus.find((menux) => menux.parentMenu === menu.order) ? (
                     menu.order === activeMenu.menu && activeMenu.active ? (
-                      <div className="w-[20%] text-white ">
+                      <div className="w-[10%] text-white flex justify-center  ">
                         <MdOutlineExpandMore
                           name={menu.parentMenu}
                           className="size-5 rotate-180"
                         />
                       </div>
                     ) : (
-                      <div className="w-[20%] text-white">
+                      <div className="w-[10%] text-white flex justify-center ">
                         <MdOutlineExpandMore
                           name={menu.parentMenu}
                           className="size-5"

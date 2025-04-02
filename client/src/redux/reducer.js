@@ -7,6 +7,8 @@ import {
   GET_TICKETS3,
   GET_TICKETS4,
   GET_TICKETS5,
+  GET_ANEXOS,
+  GET_DOCUMENTWORKORDERMANTTO,
   SET_TOKEN_ERROR,
 } from "./actionsTypes";
 
@@ -27,6 +29,10 @@ const initialState = {
   countTickets4: "loader",
   tickets5: [],
   countTickets5: "loader",
+  anexosTickets: [],
+  countAnexosTickets: "loader",
+  documentWorkOrderMantto: [],
+  countDocumentWorkOrderMantto: "loader",
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -38,6 +44,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
   let setTickets3 = {};
   let setTickets4 = {};
   let setTickets5 = {};
+  let setAnexosTickets = {};
+  let setDocumentWorkOrderMantto = {};
   switch (type) {
     //! Login of the user
     case LOGIN:
@@ -110,6 +118,26 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
       localStorage.setItem("myAppReduxState", JSON.stringify(setTickets5));
       return setTickets5;
+
+    case GET_ANEXOS:
+      setAnexosTickets = {
+        ...state,
+        anexosTickets: payload.rows,
+        countAnexosTickets: payload.count,
+      };
+      localStorage.setItem("myAppReduxState", JSON.stringify(setAnexosTickets));
+      return setAnexosTickets;
+    case GET_DOCUMENTWORKORDERMANTTO:
+      setDocumentWorkOrderMantto = {
+        ...state,
+        documentWorkOrderMantto: payload.rows,
+        countDocumentWorkOrderMantto: payload.count,
+      };
+      localStorage.setItem(
+        "myAppReduxState",
+        JSON.stringify(setDocumentWorkOrderMantto)
+      );
+      return setDocumentWorkOrderMantto;
 
     default:
       return state;

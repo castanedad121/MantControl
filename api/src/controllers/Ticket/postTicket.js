@@ -4,6 +4,7 @@ const postTicket = async (data) => {
   const {
     description,
     status,
+    file,
     PersonRequestId,
     EnterpriseRequestId,
     DocWorkOrderId,
@@ -12,7 +13,7 @@ const postTicket = async (data) => {
     AnexoTypeId,
   } = data;
 
-  if (!description || !dateCreation || !status) {
+  if (!description) {
     return {
       created: false,
       message: "Missing data for creating documentWorkOrderMantto",
@@ -23,6 +24,7 @@ const postTicket = async (data) => {
     const ticketNew = await Ticket.create({
       description,
       status,
+      file,
       PersonRequestId,
       EnterpriseRequestId,
       DocWorkOrderId,

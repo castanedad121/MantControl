@@ -14,7 +14,7 @@ const getTickets = async (data) => {
     attribute2 = "createdAt",
     order = "asc",
     page = 0,
-    size = 8,
+    size = -1,
     createDateEnd = "",
     createDateStart = "",
     anexoType,
@@ -30,6 +30,10 @@ const getTickets = async (data) => {
   const requiredDocWorkOrder = docWorkOrder ? true : false;
   const requiredUserCreation = userCreation ? true : false;
   const requiredUserUpgrade = userUpgrade ? true : false;
+
+  // Asegurarse de que size no sea negativo
+  const limit = size > 0 ? size : null;
+  const offset = limit ? limit * page : 0;
   const existingTickets = await Ticket.findAndCountAll({
     include: [
       {
@@ -172,8 +176,8 @@ const getTickets = async (data) => {
       [attribute, order],
       [attribute2, order],
     ],
-    limit: size,
-    offset: size * page,
+    limit: limit,
+    offset: offset,
   });
 
   return { geted: true, existingTickets };

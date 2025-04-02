@@ -29,6 +29,7 @@ const getUserHandler = require("../handlers/user/getUserHandler");
 //get all
 const getUsersHandler = require("../handlers/user/getUsersHandler");
 const getAnexosHandler = require("../handlers/Anexo/getAnexosHandler");
+const getDocumentWorkOrderMantto = require("../handlers/DocumentWorkOrderMantto/getDocumentWorkOrderManttoHandler"); //
 
 //! Rutas
 // Login
@@ -68,6 +69,11 @@ router.post(
   "/documentworkordermantto",
   validateToken,
   postDocumentWorkOrderManttoHandler
+);
+router.get(
+  "/documentworkordermantto",
+  validateToken,
+  getDocumentWorkOrderMantto
 );
 
 //Ticket

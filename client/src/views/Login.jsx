@@ -5,7 +5,7 @@ import { login } from "../redux/actions";
 import getParamsEnv from "../functions/getParamsEnv";
 import { validation } from "../functions/validation";
 const { HOME } = getParamsEnv();
-import { PiStudentBold } from "react-icons/pi";
+import { MdManageHistory } from "react-icons/md";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -66,8 +66,8 @@ const Login = () => {
             href="/"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
           >
-            <PiStudentBold className="mr-3 size-9 sm:h-9 text-yellow-500" />
-            Control Mantenimiento
+            <MdManageHistory className="mr-3 size-9 sm:h-9 text-yellow-500" />
+            Control de Mantenimiento
           </a>
           <form
             className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"

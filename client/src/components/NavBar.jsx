@@ -20,8 +20,8 @@ const NavBar = (props) => {
   };
   return (
     <>
-      <div className="flex h-28 border-0 border-b-[2.5px] border-[#A4B0BE] mx-1 sm:mx-6 justify-between items-center flex-wrap-reverse">
-        <h1 className="sm:text-3xl sm:font-bold text-2xl font-semibold sm:pt-4">
+      <div className="flex h-20 border-0 border-b-[2.5px] border-[#A4B0BE] mx-1 sm:mx-4 justify-between items-center flex-wrap-reverse">
+        <h1 className="sm:text-3xl sm:font-bold text-2xl font-semibold">
           {title}
         </h1>
         <div className="flex sm:justify-between  justify-end items-center  sm:pb-2 sm:w-auto w-full">

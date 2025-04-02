@@ -18,6 +18,15 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
+      file: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+
+      promisedDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       paranoid: true, // Habilita eliminación suave

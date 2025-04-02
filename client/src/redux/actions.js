@@ -10,6 +10,7 @@ import {
   GET_TICKETS4,
   GET_TICKETS5,
   GET_ANEXOS,
+  GET_DOCUMENTWORKORDERMANTTO,
 } from "./actionsTypes";
 import axios from "axios";
 import getParamsEnv from "../functions/getParamsEnv";
@@ -63,7 +64,7 @@ export const getTickets1 = (
   attribute2t1 = "createdAt",
   ordert1 = "asc",
   paget1 = 0,
-  sizet1 = -1,
+  sizet1 = 4,
   createDateEndt1 = "",
   createDateStartt1 = "",
   anexoTypet1 = 0,
@@ -81,7 +82,7 @@ export const getTickets1 = (
         `${endPoint}textsearch=${textsearcht1}&attribute=${attributet1}&attribute2=${attribute2t1}&order=${ordert1}&page=${paget1}&size=${sizet1}&createDateEnd=${createDateEndt1}&createDateStart=${createDateStartt1}&anexoType=${anexoTypet1}&enterpriseRequest=${enterpriseRequestt1}&personRequest=${personRequestt1}&docWorkOrder=${docWorkOrdert1}&userCreation=${userCreationt1}&userUpgrade=${userUpgradet1}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -110,7 +111,7 @@ export const getTickets2 = (
   attribute2t2 = "createdAt",
   ordert2 = "asc",
   paget2 = 0,
-  sizet2 = -1,
+  sizet2 = 4,
   createDateEndt2 = "",
   createDateStartt2 = "",
   anexoTypet2 = 1,
@@ -128,7 +129,7 @@ export const getTickets2 = (
         `${endPoint}textsearch=${textsearcht2}&attribute=${attributet2}&attribute2=${attribute2t2}&order=${ordert2}&page=${paget2}&size=${sizet2}&createDateEnd=${createDateEndt2}&createDateStart=${createDateStartt2}&anexoType=${anexoTypet2}&enterpriseRequest=${enterpriseRequestt2}&personRequest=${personRequestt2}&docWorkOrder=${docWorkOrdert2}&userCreation=${userCreationt2}&userUpgrade=${userUpgradet2}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -157,7 +158,7 @@ export const getTickets3 = (
   attribute2t3 = "createdAt",
   ordert3 = "asc",
   paget3 = 0,
-  sizet3 = -1,
+  sizet3 = 4,
   createDateEndt3 = "",
   createDateStartt3 = "",
   anexoTypet3 = 2,
@@ -175,7 +176,7 @@ export const getTickets3 = (
         `${endPoint}textsearch=${textsearcht3}&attribute=${attributet3}&attribute2=${attribute2t3}&order=${ordert3}&page=${paget3}&size=${sizet3}&createDateEnd=${createDateEndt3}&createDateStart=${createDateStartt3}&anexoType=${anexoTypet3}&enterpriseRequest=${enterpriseRequestt3}&personRequest=${personRequestt3}&docWorkOrder=${docWorkOrdert3}&userCreation=${userCreationt3}&userUpgrade=${userUpgradet3}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -204,7 +205,7 @@ export const getTickets4 = (
   attribute2t4 = "createdAt",
   ordert4 = "asc",
   paget4 = 0,
-  sizet4 = -1,
+  sizet4 = 4,
   createDateEndt4 = "",
   createDateStartt4 = "",
   anexoTypet4 = 3,
@@ -222,7 +223,7 @@ export const getTickets4 = (
         `${endPoint}textsearch=${textsearcht4}&attribute=${attributet4}&attribute2=${attribute2t4}&order=${ordert4}&page=${paget4}&size=${sizet4}&createDateEnd=${createDateEndt4}&createDateStart=${createDateStartt4}&anexoType=${anexoTypet4}&enterpriseRequest=${enterpriseRequestt4}&personRequest=${personRequestt4}&docWorkOrder=${docWorkOrdert4}&userCreation=${userCreationt4}&userUpgrade=${userUpgradet4}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -251,7 +252,7 @@ export const getTickets5 = (
   attribute2t5 = "createdAt",
   ordert5 = "asc",
   paget5 = 0,
-  sizet5 = -1,
+  sizet5 = 4,
   createDateEndt5 = "",
   createDateStartt5 = "",
   anexoTypet5 = 4,
@@ -269,7 +270,7 @@ export const getTickets5 = (
         `${endPoint}textsearch=${textsearcht5}&attribute=${attributet5}&attribute2=${attribute2t5}&order=${ordert5}&page=${paget5}&size=${sizet5}&createDateEnd=${createDateEndt5}&createDateStart=${createDateStartt5}&anexoType=${anexoTypet5}&enterpriseRequest=${enterpriseRequestt5}&personRequest=${personRequestt5}&docWorkOrder=${docWorkOrdert5}&userCreation=${userCreationt5}&userUpgrade=${userUpgradet5}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -309,7 +310,7 @@ export const getAnexos = (
         `${endPoint}textsearch=${textsearchAnexos}&type=${typeAnexos}&attribute=${attributeAnexos}&attribute2=${attributeAnexos2}&order=${orderAnexos}&page=${pageAnexos}&size=${sizeAnexos}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -317,6 +318,50 @@ export const getAnexos = (
       return dispatch({
         type: GET_ANEXOS,
         payload: data.existingAnexos,
+      });
+    } catch (error) {
+      // Errores 401 son para quitar al usuario de la sesión:
+      if (error?.request?.status === 401) {
+        return dispatch({
+          type: SET_TOKEN_ERROR,
+          payload: error,
+        });
+      } else {
+        return dispatch({ type: SET_ERROR, payload: error });
+      }
+    }
+  };
+};
+
+export const getDocumentWorkOrderMantto = (
+  textsearchDocument = "",
+  attributeDocument = "createdAt",
+  attribute2Document = "createdAt",
+  orderDocument = "asc",
+  pageDocument = 0,
+  sizeDocument = -1,
+  createDateEndDocument = "",
+  createDateStartDocument = "",
+  agendaTechnicalSupport,
+  anexoTypeDocument,
+  anexoCategory,
+  token
+) => {
+  const endPoint = API_URL_BASE + "documentworkordermantto?";
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${endPoint}textsearch=${textsearchDocument}&attribute=${attributeDocument}&attribute2=${attribute2Document}&order=${orderDocument}&page=${pageDocument}&size=${sizeDocument}&createDateEnd=${createDateEndDocument}&createDateStart=${createDateStartDocument}&agendaTechnicalSupport=${agendaTechnicalSupport}&anexoType=${anexoTypeDocument}&anexoCategory=${anexoCategory}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return dispatch({
+        type: GET_DOCUMENTWORKORDERMANTTO,
+        payload: data.existingDocumentWorkOrderMantto,
       });
     } catch (error) {
       // Errores 401 son para quitar al usuario de la sesión:
