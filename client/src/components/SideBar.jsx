@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MdManageHistory } from "react-icons/md";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
+import { AiTwotoneHome } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { IconMenu } from "./index";
 
@@ -41,9 +42,9 @@ const SideBar = () => {
         }
         to="/home"
       >
-        <MdManageHistory className="size-12 group-hover:size-16  hover:text-white" />
+        <AiTwotoneHome className="size-12 group-hover:size-16  hover:text-white" />
         <label className="hidden group-hover:block text-sm pt-1">
-          Mantenimiento Control
+          Sistema de Gestión
         </label>
       </NavLink>
 
@@ -51,7 +52,10 @@ const SideBar = () => {
         {menus?.map((menu, index) => (
           <React.Fragment key={index}>
             {menu.level === 1 &&
-              !menus.find((menux) => menux.parentMenu === menu.order) && (
+              menu.status &&
+              !menus.find(
+                (menux) => menux.parentMenu === menu.order && menux.status
+              ) && (
                 <NavLink
                   className={({ isActive }) =>
                     isActive
@@ -67,7 +71,9 @@ const SideBar = () => {
                   <h1 className="hidden group-hover:flex text-sm text-white w-[70%] ">
                     {menu.nameFront}
                   </h1>
-                  {menus.find((menux) => menux.parentMenu === menu.order) ? (
+                  {menus.find(
+                    (menux) => menux.parentMenu === menu.order && menux.status
+                  ) ? (
                     menu.order === activeMenu.menu && activeMenu.active ? (
                       <div className="w-[10%] flex   justify-center">
                         <MdOutlineExpandMore className="size-5 rotate-180 " />
@@ -83,7 +89,10 @@ const SideBar = () => {
                 </NavLink>
               )}
             {menu.level === 1 &&
-              menus.find((menux) => menux.parentMenu === menu.order) && (
+              menu.status &&
+              menus.find(
+                (menux) => menux.parentMenu === menu.order && menux.status
+              ) && (
                 <div
                   className={
                     menu.order === activeMenu.menu && activeMenu.active
@@ -98,7 +107,9 @@ const SideBar = () => {
                   <h1 className="hidden group-hover:flex text-sm text-white w-[70%] ">
                     {menu.nameFront}
                   </h1>
-                  {menus.find((menux) => menux.parentMenu === menu.order) ? (
+                  {menus.find(
+                    (menux) => menux.parentMenu === menu.order && menux.status
+                  ) ? (
                     menu.order === activeMenu.menu && activeMenu.active ? (
                       <div className="w-[10%] text-white flex justify-center  ">
                         <MdOutlineExpandMore
@@ -119,11 +130,12 @@ const SideBar = () => {
                   )}
                 </div>
               )}
-            {menu.level === 2 && (
+            {menu.level === 2 && menu.status && (
               <NavLink
                 className={({ isActive }) =>
                   isActive &&
                   menu.parentMenu === activeMenu.menu &&
+                  menu.status &&
                   activeMenu.active
                     ? "hidden group-hover:flex justify-around items-start text-white w-full rounded-md bg-white/30 "
                     : menu.parentMenu === activeMenu.menu && activeMenu.active
